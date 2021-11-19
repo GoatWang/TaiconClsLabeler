@@ -4,6 +4,9 @@
 data/
 out/
 paper/
+build/
+dist/
+__pycache__/
 
 *.log
 *.out

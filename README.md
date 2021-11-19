@@ -1,4 +1,48 @@
-# PyQt Image Annotation Tool
+# 簡介
+這個是我拿網路上的code來改的影像標記(分類)軟體，你們可以用用看，我這個我可以客製化幅度比較大，快捷鍵跟一些新功能都可以評估加入。
+
+# 使用方法
+1. 在影像資料夾中加入classes.txt檔案
+![open_classes_txt](static/open_classes_txt.PNG)
+![name_classes_txt](static/name_classes_txt.PNG)
+
+2. 在classes.txt寫入類別
+![write_classes_txt](static/write_classes_txt.PNG)
+```
+dent
+no_dent
+```
+
+3. 開啟標註軟體並指定圖檔資料夾
+![select_folder.PNG](static/select_folder.PNG)
+
+
+4. 開啟標註軟體並指定圖檔資料夾
+![labeling_page.PNG](static/labeling_page.PNG)
+
+# 快捷鍵
+1. Prev: p or a
+2. Next: n or d
+3. Labeing: 1~9
+
+# Deploy
+```
+pyinstaller main.spec
+```
+# Version Note
+## v1: 
+1. Change to save txt (`.cls.txt`) file
+2. Use classes.txt to define clabel
+3. remove functions: add labels
+4. remove functions: `move` and `copy` mode
+
+## v2: 
+1. Add go to function (recommended by Yun)
+2. Add not save check
+3. remove functions: generate csv btn
+
+
+<!-- # PyQt Image Annotation Tool
 
 This app is used to label images in a given directory.
 Labeled images can be moved or copied into sub-directories, which are named as assigned labels.
@@ -42,4 +86,4 @@ label(s) to these images.
 
 ## Contributing
 
-Pull requests are welcomed.
+Pull requests are welcomed. -->
