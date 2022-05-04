@@ -230,7 +230,7 @@ class SetupWindow(QWidget):
         self.label_headlines = []  # labels to label input fields
 
         # read 
-        with open(txt_path, 'r') as f:
+        with open(txt_path, 'r', encoding='cp950') as f:
             content = f.readlines()
         labels = [line.rstrip('\n') for line in content]
         
@@ -304,8 +304,8 @@ class LabelerWindow(QWidget):
         self.width = 1100
         self.height = 770
         # img panal size should be square-like to prevent some problems with different aspect ratios
-        self.img_panel_width = 650
-        self.img_panel_height = 650
+        self.img_panel_width = 640 # 1440
+        self.img_panel_height = 480 # 1440
         self.label_extension = '.cls.txt'
 
         # state variables
@@ -475,7 +475,7 @@ class LabelerWindow(QWidget):
                 x_shift += 120
                 y_shift = 0
 
-            button.setGeometry(self.img_panel_width + 20 + x_shift, y_shift + 120, 80, 30)
+            button.setGeometry(self.img_panel_width + 20 + x_shift, y_shift + 120, 160, 30)
             # button.move(self.img_panel_width + 20 + x_shift, y_shift + 120)
 
     def init_assigned_labels(self, input_folder, extensions=('.jpg', '.png', '.jpeg')):
@@ -483,7 +483,7 @@ class LabelerWindow(QWidget):
             if filename.lower().endswith(self.label_extension) and filename != 'classes.txt':
                 txt_path = os.path.join(input_folder, filename)
                 img_name = [filename.replace(self.label_extension, ext) for ext in extensions if os.path.exists(os.path.join(input_folder, filename.replace(self.label_extension, ext)))][0]
-                with open(txt_path, 'r') as f:
+                with open(txt_path, 'r', encoding='cp950') as f:
                     content = f.readlines()
                 img_labels = [line.rstrip('\n') for line in content]
                 for label in img_labels:
@@ -562,7 +562,7 @@ class LabelerWindow(QWidget):
             # elif self.mode == 'move':
             #     shutil.move(img_path, copy_to)
 
-        with open(txt_path, 'w', encoding='utf8') as f:
+        with open(txt_path, 'w', encoding='cp950') as f:
             if img_name in self.assigned_labels.keys():
                 for label in self.assigned_labels[img_name]:
                     f.write(label + '\n')
@@ -579,7 +579,7 @@ class LabelerWindow(QWidget):
         img_name = os.path.basename(img_path)
         ext_name = '.' + img_name.split('.')[-1]
         txt_path = os.path.join(os.path.dirname(img_path), img_name.replace(ext_name, self.label_extension))
-        with open(txt_path, 'w', encoding='utf8') as f:
+        with open(txt_path, 'w', encoding='cp950') as f:
             if img_name in self.assigned_labels.keys():
                 for label in self.assigned_labels[img_name]:
                     f.write(label + '\n')
@@ -642,8 +642,7 @@ class LabelerWindow(QWidget):
         displays the image in GUI
         :param path: relative path to the image that should be show
         """
-
-        pixmap = QPixmap(path)
+        pixmap = QPixmap(path).scaled(1440, 1440, Qt.KeepAspectRatio, transformMode=Qt.SmoothTransformation)
 
         # get original image dimensions
         img_width = pixmap.width()
